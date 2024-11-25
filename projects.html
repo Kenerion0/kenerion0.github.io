@@ -32,4 +32,65 @@
             <li><a href="projects.html">Projects</a></li>
         </ul>
     </nav>
+</header>
+<script src="calc.js" defer></script>
+<style>
+    h1 {
+        font-size: 32px;
+        background-color: #ffffff;
+        text-align: center;
+    }
+</style>
+<h1>Simple Calculator</h1>
+<form id="calculator-form">
+    <input type="number" id="num1" placeholder="First number" required>
+    <input type="number" id="num2" placeholder="Second number" required>
+    <select id="operation">
+        <option value="add">Add</option>
+        <option value="subtract">Subtract</option>
+        <option value="multiply">Multiply</option>
+        <option value="divide">Divide</option>
+    </select>
+    <button type="submit">Calculate</button>
+</form>
+<style>
+    p { 
+        background-color: #ffffff;
+    }
+</style>
+<p id="result"></p>
+
+<script>
+    document.getElementById('calculator-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const num1 = parseFloat(document.getElementById('num1').value);
+        const num2 = parseFloat(document.getElementById('num2').value);
+        const operation = document.getElementById('operation').value;
+        const calc = new Calculator();
+        let result;
+
+        switch (operation) {
+            case 'add':
+                result = calc.add(num1, num2);
+                break;
+            case 'subtract':
+                result = calc.subtract(num1, num2);
+                break;
+            case 'multiply':
+                result = calc.multiply(num1, num2);
+                break;
+            case 'divide':
+                try {
+                    result = calc.divide(num1, num2);
+                } catch (error) {
+                    result = error.message;
+                }
+                break;
+            default:
+                result = 'Invalid operation';
+        }
+
+        document.getElementById('result').textContent = `Result: ${result}`;
+    });
+</script>
 </html>
