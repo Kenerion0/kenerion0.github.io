@@ -1,0 +1,118 @@
+<style>
+    header {
+        background-color: #46753c;
+        padding: 10px;
+        box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(70,117,60,0);
+    }
+
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    nav ul li {
+        display: inline;
+        margin-right: 10px;
+    }
+
+    nav ul li a {
+        color: rgb(26, 3, 3);
+        text-decoration: none;
+    }
+    body {
+        background-color: #272320;
+    }
+</style>
+<header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="projects.html">Projects</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+<script src="calc.js" defer></script>
+<style>
+    h1 {
+        font-size: 32px;
+        color: #ffffff;
+        text-align: center;
+    }
+</style>
+<h1>Simple Calculator</h1>
+<style>
+    input {
+        padding: 5px;
+        margin: 5px;
+    }
+
+    select {
+        padding: 5px;
+        margin: 5px;
+    }
+
+    button {
+        padding: 5px;
+        margin: 5px;
+        background-color: #46753c;
+        color: #ffffff;
+        border: none;
+        cursor: pointer;
+        
+    }
+</style>
+<form id="calculator-form">
+    <input type="number" id="num1" placeholder="First number" required>
+    <input type="number" id="num2" placeholder="Second number" required>
+    <select id="operation">
+        <option value="add">Add</option>
+        <option value="subtract">Subtract</option>
+        <option value="multiply">Multiply</option>
+        <option value="divide">Divide</option>
+    </select>
+    <button type="submit">Calculate</button>
+</form>
+<style>
+    p { 
+        color: #ffffff;
+    }
+</style>
+<p id="result"></p>
+
+<script>
+    document.getElementById('calculator-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const num1 = parseFloat(document.getElementById('num1').value);
+        const num2 = parseFloat(document.getElementById('num2').value);
+        const operation = document.getElementById('operation').value;
+        const calc = new Calculator();
+        let result;
+
+        switch (operation) {
+            case 'add':
+                result = calc.add(num1, num2);
+                break;
+            case 'subtract':
+                result = calc.subtract(num1, num2);
+                break;
+            case 'multiply':
+                result = calc.multiply(num1, num2);
+                break;
+            case 'divide':
+                try {
+                    result = calc.divide(num1, num2);
+                } catch (error) {
+                    result = error.message;
+                }
+                break;
+            default:
+                result = 'Invalid operation';
+        }
+
+        document.getElementById('result').textContent = `Result: ${result}`;
+    });
+</script>
